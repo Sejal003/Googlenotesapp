@@ -46,11 +46,11 @@ function shownotes() {
     for (let i = 0; i < notes.length; i++) {
         notesHTML += 
         `
-         <div class ="note">
+         <main class ="note">
          <button class = "deletenote" id = ${i} onclick = "deletenotes(${i})">Delete</button>
          <div class="title">${notes[i].title}</div>
          <p class="text">${notes[i].text}<p>
-         </div>
+         </main>
          
         `
     }
@@ -72,7 +72,19 @@ function deletenotes(ind){
 }
 addnotebutton.addEventListener('click', addnotes);
 
+// Search engine/filter
 
+const allnotes = document.querySelectorAll('#notes main');
+const searchinput = document.querySelector('#search-item');
 
+searchinput.addEventListener('input' ,function(e){
+    const search = e.target.value.toLowerCase();
+    notesdiv.innerHTML='';
+    allnotes.forEach(main =>{
+           const paragraph = main.querySelectorAll('p');
+           if(paragraph[0].innerText.toLowerCase().indexOf(search) > -1){
+            notesdiv.appendChild(main) ;
+           }          
+    });
 
-
+})
